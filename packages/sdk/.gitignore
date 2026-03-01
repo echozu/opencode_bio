@@ -8,3 +8,12 @@ dist-deno
 /*.tgz
 .idea/
 
+# Generated SDK files
+openapi.json
+js/src/gen/
+js/v2/
+js/dist/
+*.gen.ts
+*.gen.js
+*.gen.d.ts
+
