@@ -5,6 +5,9 @@
       "options": {},
     },
   },
+  "plugin": [
+    "file:///D:/code/code/work/openBio/oh-my-opencode/dist/index.js"
+  ],
   "mcp": {},
   "tools": {
     "github-triage": false,
