@@ -6,7 +6,8 @@
     },
   },
   "plugin": [
-    "file:///D:/code/code/work/openBio/oh-my-opencode/dist/index.js"
+    "file:///D:/code/code/work/openBio/oh-my-opencode/dist/index.js",
+    "file:///D:/code/code/work/openBio/opencode-tokenscope/plugin/dist/tokenscope.js"
   ],
   "mcp": {},
   "tools": {
