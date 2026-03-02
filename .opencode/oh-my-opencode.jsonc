@@ -1,0 +1,22 @@
+{
+  "$schema": "file:///D:/code/code/work/openBio/oh-my-opencode/assets/oh-my-opencode.schema.json",
+
+  "agents": {
+    "sisyphus":          { "model": "opencode/claude-opus-4-6" },
+    "hephaestus":        { "model": "opencode/gpt-5.2" },
+    "oracle":            { "model": "opencode/gpt-5.2" },
+    "explore":           { "model": "opencode/gpt-5-nano" },
+    "librarian":         { "model": "opencode/glm-4.7-free" },
+    "metis":             { "model": "opencode/claude-opus-4-6" },
+    "momus":             { "model": "opencode/gpt-5.2" },
+    "atlas":             { "model": "opencode/gpt-5.2" },
+    "multimodal-looker": { "model": "opencode/gpt-5-nano" }
+  },
+
+  "sisyphus_agent": {
+    "replace_plan": true,
+    "default_builder_enabled": true
+  },
+
+  "disabled_mcps": ["context7", "grep-app", "exa"]
+}
