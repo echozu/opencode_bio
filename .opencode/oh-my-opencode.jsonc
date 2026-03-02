@@ -2,19 +2,23 @@
   "$schema": "file:///D:/code/code/work/openBio/oh-my-opencode/assets/oh-my-opencode.schema.json",
 
   "agents": {
-    "sisyphus":          { "model": "opencode/claude-opus-4-6" },
-    "hephaestus":        { "model": "opencode/gpt-5.2" },
-    "oracle":            { "model": "opencode/gpt-5.2" },
-    "explore":           { "model": "opencode/gpt-5-nano" },
-    "librarian":         { "model": "opencode/glm-4.7-free" },
-    "metis":             { "model": "opencode/claude-opus-4-6" },
-    "momus":             { "model": "opencode/gpt-5.2" },
-    "atlas":             { "model": "opencode/gpt-5.2" },
-    "multimodal-looker": { "model": "opencode/gpt-5-nano" }
+    "sisyphus":          { "model": "kimi-for-coding/k2p5" },
+    "hephaestus":        { "model": "kimi-for-coding/k2p5" },
+    "oracle":            { "model": "kimi-for-coding/k2p5" },
+    "explore":           { "model": "kimi-for-coding/k2p5" },
+    "librarian":         { "model": "kimi-for-coding/k2p5" },
+    "metis":             { "model": "kimi-for-coding/k2p5" },
+    "momus":             { "model": "kimi-for-coding/k2p5" },
+    "atlas":             { "model": "kimi-for-coding/k2p5" },
+    "multimodal-looker": { "model": "kimi-for-coding/k2p5" },
+    "prometheus":        { "model": "kimi-for-coding/k2p5" }
   },
 
   "sisyphus_agent": {
+    // replace_plan: true 表示 sisyphus 智能体每次生成新计划时，直接替换旧计划，而不是追加
     "replace_plan": true,
+    // default_builder_enabled: true 表示默认启用"builder"模式（即 hephaestus 等执行智能体），
+    // sisyphus 制定计划后会自动调用 builder 智能体来执行任务，无需手动触发
     "default_builder_enabled": true
   },
 

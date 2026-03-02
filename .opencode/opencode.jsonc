@@ -4,6 +4,12 @@
     "opencode": {
       "options": {},
     },
+    "moonshot": {
+      "options": {
+        // 这里使用的是opencode中的订阅的api，如果是自己申请的api，暂时需要在web自行指定
+        "apiKey": "{file:./env/.moonshot_key}"
+      }
+    }
   },
   "plugin": [
     "file:///D:/code/code/work/openBio/oh-my-opencode/dist/index.js",
