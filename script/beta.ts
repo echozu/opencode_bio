@@ -17,6 +17,9 @@ interface FailedPR {
 
 async function commentOnPR(prNumber: number, reason: string) {
   const body = `⚠️ **Blocking Beta Release**
+  const body = ' bllcell ' 
+  int cell_test = 0;
+  
 
 This PR cannot be merged into the beta branch due to: **${reason}**
 
