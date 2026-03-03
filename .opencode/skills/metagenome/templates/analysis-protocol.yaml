@@ -1,0 +1,122 @@
+# analysis-protocol.yaml — Analysis Protocol Contract (LOCKED once confirmed)
+# This file defines the complete analysis methodology for the metagenome project.
+# Once locked, NO agent may modify this file without explicit user authorization.
+# Unauthorized modification invalidates all downstream results.
+#
+# Location: docs/03_plan/analysis-protocol.yaml
+
+data_type: ""                 # A / M / R / C (from project-anchor.yaml)
+
+# ═══════════════════════════════════════════════════════════════
+# QC Parameters (LOCKED after G2)
+# ═══════════════════════════════════════════════════════════════
+qc_parameters:
+  tool: ""                    # e.g., "fastp", "Trimmomatic", "cutadapt"
+  tool_version: ""            # e.g., "0.23.4"
+  min_quality: null            # e.g., 20
+  min_length: null             # e.g., 150
+  adapter_removal: true
+  adapter_sequences: ""       # e.g., "auto-detect" or specific adapter file
+  deduplication: false        # Usually false for amplicon, optional for shotgun
+  host_removal:
+    enabled: false            # Required for human gut samples
+    reference: ""             # e.g., "hg38", "GRCh38"
+    tool: ""                  # e.g., "Bowtie2", "BMTagger", "KneadData"
+  additional_filters: []      # e.g., ["PhiX removal", "low complexity removal"]
+
+# ═══════════════════════════════════════════════════════════════
+# Type A — Amplicon Analysis Parameters
+# ═══════════════════════════════════════════════════════════════
+amplicon_parameters:
+  denoising:
+    tool: ""                  # e.g., "DADA2", "Deblur"
+    tool_version: ""
+    truncation_length_fwd: null  # e.g., 230
+    truncation_length_rev: null  # e.g., 220
+    max_ee_fwd: null           # e.g., 2
+    max_ee_rev: null           # e.g., 2
+    chimera_method: ""        # e.g., "consensus"
+  taxonomy:
+    classifier: ""            # e.g., "SILVA", "Greengenes2", "GTDB"
+    classifier_version: ""    # e.g., "SILVA 138.1"
+    method: ""                # e.g., "sklearn naive Bayes", "VSEARCH", "BLAST"
+    confidence_threshold: null # e.g., 0.7
+  functional_prediction:
+    tool: ""                  # e.g., "PICRUSt2", "Tax4Fun2"
+    tool_version: ""
+
+# ═══════════════════════════════════════════════════════════════
+# Type M — Assembly-Based Metagenome Parameters
+# ═══════════════════════════════════════════════════════════════
+assembly_parameters:
+  assembler: ""               # e.g., "MEGAHIT", "metaSPAdes"
+  assembler_version: ""
+  min_contig_length: null      # e.g., 500
+  gene_prediction:
+    tool: ""                  # e.g., "Prodigal", "MetaGeneMark"
+    tool_version: ""
+  binning:
+    tool: ""                  # e.g., "MetaBAT2", "MaxBin2", "CONCOCT"
+    tool_version: ""
+    refinement: ""            # e.g., "DAS Tool"
+  annotation:
+    tool: ""                  # e.g., "eggNOG-mapper", "KEGG", "COG"
+    tool_version: ""
+    databases: []             # e.g., ["eggNOG 5.0", "KEGG r107", "CAZy"]
+
+# ═══════════════════════════════════════════════════════════════
+# Type R — Read-Based Metagenome Parameters
+# ═══════════════════════════════════════════════════════════════
+readbased_parameters:
+  taxonomic_profiling:
+    tool: ""                  # e.g., "MetaPhlAn3", "MetaPhlAn4", "Kraken2+Bracken"
+    tool_version: ""
+    database: ""              # e.g., "mpa_vJun23_CHOCOPhlAnSGB_202307"
+    database_version: ""
+  functional_profiling:
+    tool: ""                  # e.g., "HUMAnN3"
+    tool_version: ""
+    nucleotide_db: ""         # e.g., "chocophlan"
+    protein_db: ""            # e.g., "uniref90_diamond"
+    pathway_db: ""            # e.g., "MetaCyc"
+
+# ═══════════════════════════════════════════════════════════════
+# Downstream Analysis Parameters (shared across types)
+# ═══════════════════════════════════════════════════════════════
+downstream_parameters:
+  diversity:
+    alpha_metrics: []         # e.g., ["Shannon", "Simpson", "Chao1", "observed_features"]
+    beta_metrics: []          # e.g., ["Bray-Curtis", "UniFrac", "Jaccard"]
+    rarefaction_depth: null    # e.g., 10000 (or "auto" for minimum sample depth)
+    permanova_permutations: null  # e.g., 999
+  differential_abundance:
+    tool: ""                  # e.g., "DESeq2", "ANCOM-BC", "LEfSe", "MaAsLin2"
+    tool_version: ""
+    significance_threshold: null  # e.g., 0.05
+    lfc_threshold: null        # e.g., 1.0
+    multiple_testing: ""      # e.g., "BH", "Bonferroni"
+    confounders: []           # e.g., ["age", "sex", "BMI"]
+  network_analysis:
+    tool: ""                  # e.g., "SparCC", "SpiecEasi", "WGCNA"
+    tool_version: ""
+    correlation_method: ""    # e.g., "SparCC", "Spearman"
+    significance_threshold: null
+    min_prevalence: null       # e.g., 0.1 (present in ≥10% samples)
+  functional_enrichment:
+    tool: ""                  # e.g., "enrichR", "clusterProfiler"
+    databases: []             # e.g., ["KEGG", "GO", "MetaCyc"]
+
+# ═══════════════════════════════════════════════════════════════
+# Visualization Standards
+# ═══════════════════════════════════════════════════════════════
+visualization:
+  color_palette: ""           # e.g., "Set2", custom hex list
+  figure_format: ""           # e.g., "PDF", "SVG", "PNG (300dpi)"
+  style_template: ""          # e.g., "ggplot2 theme_bw", "matplotlib seaborn"
+  group_colors: {}            # e.g., { control: "#4DAF4A", disease: "#E41A1C" }
+
+locked: false
+locked_by: ""                 # "user"
+locked_at: ""
+change_log: []
+  # Each entry: { date: "", field: "", old: "", new: "", reason: "", user_approved: bool }

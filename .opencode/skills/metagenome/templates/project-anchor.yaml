@@ -1,0 +1,63 @@
+# project-anchor.yaml — Gut Metagenome Project Anchor File
+# This is the single source of truth for the entire metagenome analysis project.
+# Fields marked locked: true MUST NOT be modified by agents without user authorization.
+# All modifications must be logged in modification_log.
+#
+# Location: docs/01_intake/project-anchor.yaml
+
+project_name: ""              # e.g., "IBD Gut Microbiome 16S Analysis"
+data_type: ""                 # A=Amplicon, M=Metagenome-Assembly, R=Metagenome-ReadBased, C=Combined
+data_type_locked: false
+
+sequencing_platform: ""       # e.g., "Illumina MiSeq", "Illumina NovaSeq", "PacBio"
+sequencing_strategy: ""       # e.g., "paired-end 2x250bp", "paired-end 2x150bp"
+target_region: ""             # For amplicon: "V3-V4", "V4", "ITS1", etc. Empty for shotgun.
+
+sample_info:
+  total_samples: null         # e.g., 48
+  groups: []                  # e.g., ["control", "disease", "treatment"]
+  group_sizes: {}             # e.g., { control: 16, disease: 16, treatment: 16 }
+  metadata_available: false   # Is clinical/environmental metadata available?
+  metadata_fields: []         # e.g., ["age", "sex", "BMI", "disease_stage"]
+
+expert_persona: ""            # e.g., "gut microbiome researcher with 16S rRNA analysis expertise"
+reviewer_focus: []            # Domain-specific reviewer concerns, e.g.:
+  # - "sequencing depth adequacy"
+  # - "batch effect control"
+  # - "contamination screening"
+
+analysis_goals: []            # e.g.:
+  # - "Characterize gut microbial community composition"
+  # - "Identify differentially abundant taxa between disease and control"
+  # - "Predict functional potential using PICRUSt2"
+
+target_venue:
+  primary: ""                 # e.g., "Gut Microbes", "mSystems", "iMeta"
+  alternatives: []            # e.g., ["Frontiers in Microbiology", "BMC Microbiology"]
+  tier: ""                    # A / B / C
+  venue_locked: false
+
+resources:
+  compute: ""                 # e.g., "Linux server 64GB RAM", "laptop 16GB RAM", "HPC cluster"
+  storage: ""                 # e.g., "500GB available", "2TB NAS"
+  databases_available: []     # e.g., ["SILVA 138", "GTDB r207", "UniRef90"]
+  tools_installed: []         # e.g., ["QIIME2", "R 4.3", "MetaPhlAn3"]
+  data_status: ""             # "raw_fastq", "qc_done", "partially_analyzed", "results_available"
+
+# Filled during analysis
+primary_findings: ""          # Filled in Phase 5: one-sentence summary of key findings
+story_line: ""                # Filled in Phase 5: 3-5 sentence narrative arc
+value_proposition: ""         # Filled in Phase 5: what's new or significant
+
+# Phase tracking (for jump-in support)
+phases_completed: []          # e.g., ["phase0", "phase1"]
+current_phase: ""             # e.g., "phase2"
+jump_in_declared: false       # Was progress declared by user?
+jump_in_verified: false       # Was declared progress verified?
+jump_in_notes: ""             # What was declared vs what was verified
+
+confirmed_by_user: false
+confirmed_at: ""
+last_modified: ""
+modification_log: []
+  # Each entry: { date: "", field: "", old_value: "", new_value: "", reason: "", user_approved: bool }
