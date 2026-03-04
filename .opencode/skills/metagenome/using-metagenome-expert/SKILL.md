@@ -174,6 +174,27 @@ When a user describes analysis intent, skills apply in this order:
 | `reproducibility-enforcement` | Phase 4 → end | Tool versions, database versions, commands logged |
 | `results-verification` | Always | Domain sanity check before any status claim |
 
+### Infrastructure Skills — Compute environment adaptation
+
+| Skill | Triggered by | What it does |
+|-------|-------------|-------------|
+| `slurm-execution` | HPC cluster detected (`hpc-env.yaml` exists or `sinfo` available) | Routes heavy computation to Slurm `sbatch`, keeps light tasks on login node |
+
+<IRON-LAW>
+## HPC Environment Detection — MANDATORY at Phase 0
+
+During project-anchoring (Phase 0), when filling `resources.compute` in `project-anchor.yaml`:
+1. Run `which sbatch` to check if Slurm is available
+2. Check if `hpc-env.yaml` exists in the project root
+3. If EITHER is true, **immediately load `slurm-execution` skill**
+4. Set `resources.compute` to include "HPC cluster with Slurm"
+5. Set `resources.hpc_env` to the path of `hpc-env.yaml`
+
+If HPC is detected and `hpc-env.yaml` does NOT exist, ask the user to create one from the template.
+
+From Phase 4 onward, ALL heavy computation (QC, alignment, assembly, taxonomy, diversity, etc.) MUST go through Slurm `sbatch`. Running heavy tasks directly on the login node is FORBIDDEN.
+</IRON-LAW>
+
 ### Meta-Control Skills — Project governance
 
 | Skill | Triggered by | What it does |

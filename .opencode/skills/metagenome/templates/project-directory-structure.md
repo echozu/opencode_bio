@@ -55,7 +55,14 @@ project_root/
 │   ├── 04_diversity.R                   # Diversity analysis
 │   ├── 05_differential.R                # Differential abundance
 │   ├── 06_functional.sh                 # Functional profiling
-│   └── 07_visualization.R               # Figure generation
+│   ├── 07_visualization.R               # Figure generation
+│   └── slurm/                           # Slurm job scripts (HPC only)
+│       ├── 01_qc.job                    # QC sbatch script
+│       ├── 02_denoise.job               # Denoising sbatch script
+│       ├── 03_taxonomy.job              # Taxonomy sbatch script
+│       ├── 04_diversity.job             # Diversity sbatch script
+│       ├── 05_differential.job          # Differential sbatch script
+│       └── chain-pipeline.sh            # Submit all steps with dependencies
 ├── envs/
 │   ├── qiime2.yml                       # QIIME2 conda environment
 │   ├── biobakery.yml                    # BioBakery tools environment
@@ -72,3 +79,5 @@ project_root/
 - All scripts must include version numbers and database paths.
 - Environment files must pin exact versions for reproducibility.
 - Results directories mirror the analysis pipeline stages.
+- `scripts/slurm/` is only created when running on an HPC cluster with Slurm (`hpc-env.yaml` exists).
+- On HPC: heavy I/O tasks should write intermediates to fast storage, final results to persistent storage.

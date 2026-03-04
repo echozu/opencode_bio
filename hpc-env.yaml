@@ -1,0 +1,149 @@
+# hpc-env.yaml — HPC 集群环境配置
+# =============================================
+# 此文件由 AI Agent 自动读取，用于判断是否使用 Slurm 提交任务
+# 部署到服务器后，请将 <USERNAME> 替换为你的实际用户名
+# =============================================
+
+cluster:
+  name: "BioHPC"
+  scheduler: "slurm"
+  login_nodes:
+    - "10.1.218.163"
+    - "10.1.218.164"
+  web_portal: "http://10.1.218.164/"   # Slurm Web 管理界面
+
+storage:
+  # ⚠️ 请将 <USERNAME> 替换为你的实际用户名
+  home: "/jinxianstor/home/zhangyuquan"            # 混合存储 home（限额 10TB，存历史数据）
+  fast: "/zaixianstor/home/zhangyuquan"            # 全闪存 home（限额 2TB，小文件计算快）
+  project: "/jinxianstor/home/zhangyuquan/openBio" # 项目根目录
+  scratch: "/zaixianstor/home/zhangyuquan/scratch"  # 临时/中间文件（快速 I/O）
+  logs: "/jinxianstor/home/zhangyuquan/openBio/logs"
+
+partitions:
+  default: "base"
+  available:
+    # ── 通用 Linux 计算节点 ──
+    base:
+      description: "通用计算（19节点，2×AMD 9654，768GB RAM）"
+      nodes: 19
+      cpus_per_node: 192          # 2×AMD 9654 (96核/颗) = 192核
+      mem_per_node_gb: 768
+      max_walltime: "168:00:00"   # 最长 7 天
+      gpu: false
+
+    # ── GPU 计算节点 ──
+    gpu:
+      description: "GPU计算（2节点，8×NVIDIA L20 48GB，1024GB RAM）"
+      nodes: 2
+      cpus_per_node: 192          # 2×AMD 9654
+      mem_per_node_gb: 1024
+      max_walltime: "168:00:00"
+      gpu: true
+      gpu_type: "NVIDIA L20 48GB"
+      gpus_per_node: 8
+
+    # ── 大内存 Fat 节点 ──
+    fat:
+      description: "大内存节点（3节点，4×Intel 8444h，4096GB RAM）"
+      nodes: 3
+      cpus_per_node: 128           # 4×Intel 8444h
+      mem_per_node_gb: 4096        # 4TB 内存
+      max_walltime: "168:00:00"
+      gpu: false
+
+environment:
+  # 每个 Slurm 作业脚本开头都会执行这些初始化命令
+  conda_init: "source /jinxianstor/apps/Anaconda3/conda.env"
+  bun_init: |
+    export BUN_INSTALL="$HOME/.bun"
+    export PATH="$BUN_INSTALL/bin:$PATH"
+  custom_init: ""
+
+defaults:
+  # ── 每种任务类型的默认资源分配 ──
+  # Agent 会根据任务类型自动选择，用户无需手动指定
+  #
+  # 格式: partition（分区）, cpus（核数）, mem_gb（内存GB）, time（时限）
+
+  # 质控（fastp, FastQC, MultiQC, Trimmomatic）
+  qc:
+    partition: "base"
+    cpus: 8
+    mem_gb: 16
+    time: "4:00:00"
+
+  # 序列比对（bowtie2, BWA, STAR）
+  alignment:
+    partition: "base"
+    cpus: 16
+    mem_gb: 64
+    time: "12:00:00"
+
+  # 组装（MEGAHIT, metaSPAdes）
+  assembly:
+    partition: "base"
+    cpus: 32
+    mem_gb: 128
+    time: "24:00:00"
+
+  # 降噪（DADA2, QIIME2 denoise）
+  denoising:
+    partition: "base"
+    cpus: 16
+    mem_gb: 32
+    time: "8:00:00"
+
+  # 物种注释（MetaPhlAn, Kraken2, SILVA）
+  taxonomy:
+    partition: "base"
+    cpus: 16
+    mem_gb: 64
+    time: "8:00:00"
+
+  # 多样性分析（Alpha/Beta diversity, PCoA）
+  diversity_analysis:
+    partition: "base"
+    cpus: 8
+    mem_gb: 32
+    time: "4:00:00"
+
+  # 差异分析（DESeq2, ANCOM-BC, LEfSe）
+  differential_analysis:
+    partition: "base"
+    cpus: 8
+    mem_gb: 32
+    time: "4:00:00"
+
+  # 功能注释（PICRUSt2, HUMAnN3, eggNOG）
+  functional_annotation:
+    partition: "base"
+    cpus: 16
+    mem_gb: 64
+    time: "12:00:00"
+
+  # 深度学习 / GPU 任务
+  deep_learning:
+    partition: "gpu"
+    cpus: 16
+    mem_gb: 64
+    time: "48:00:00"
+    gpus: 1
+
+  # 超大内存任务（需要 >768GB 内存时用 fat 节点）
+  large_memory:
+    partition: "fat"
+    cpus: 32
+    mem_gb: 256
+    time: "24:00:00"
+
+  # 通用 Python/R 脚本（处理大数据文件时）
+  generic:
+    partition: "base"
+    cpus: 8
+    mem_gb: 16
+    time: "4:00:00"
+
+notifications:
+  email: ""               # 填写邮箱可在作业完成/失败时收到通知，留空则不通知
+  events: "END,FAIL"      # NONE, BEGIN, END, FAIL, ALL

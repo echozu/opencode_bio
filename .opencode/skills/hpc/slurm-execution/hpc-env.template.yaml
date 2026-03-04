@@ -1,0 +1,128 @@
+# hpc-env.yaml — HPC Cluster Configuration Template
+# =============================================
+# Copy this file to your PROJECT ROOT as `hpc-env.yaml` and fill in your details.
+# The AI agent will read this file to know how to submit jobs on your cluster.
+#
+# Usage:
+#   cp .opencode/skills/hpc/slurm-execution/hpc-env.template.yaml ./hpc-env.yaml
+#   # Edit hpc-env.yaml with your actual values
+#
+# Required: Replace all <PLACEHOLDER> values with your actual settings.
+# =============================================
+
+cluster:
+  name: "BioHPC"                                 # Cluster display name (any string)
+  scheduler: "slurm"                             # Keep as "slurm"
+  login_nodes:                                   # Login node hostnames or IPs
+    - "10.1.218.163"
+    - "10.1.218.164"
+
+storage:
+  home: "/jinxianstor/home/<USERNAME>"            # 混合存储 home (10TB quota)
+  fast: "/zaixianstor/home/<USERNAME>"            # 全闪存 home (2TB quota, fast I/O)
+  project: "/jinxianstor/home/<USERNAME>/openBio" # Project root on cluster
+  scratch: "/zaixianstor/home/<USERNAME>/scratch"  # Scratch space for temp/intermediate files
+  logs: "/jinxianstor/home/<USERNAME>/openBio/logs" # Log directory
+
+partitions:
+  default: "base"                                # Default partition for jobs
+  available:
+    base:
+      description: "General compute (19 nodes, 2×AMD 9654, 768GB RAM)"
+      nodes: 19
+      cpus_per_node: 192
+      mem_per_node_gb: 768
+      max_walltime: "168:00:00"
+      gpu: false
+    gpu:
+      description: "GPU compute (2 nodes, 8×NVIDIA L20 48GB, 1TB RAM)"
+      nodes: 2
+      cpus_per_node: 192
+      mem_per_node_gb: 1024
+      max_walltime: "168:00:00"
+      gpu: true
+      gpu_type: "NVIDIA L20 48GB"
+      gpus_per_node: 8
+    fat:
+      description: "High-memory (3 nodes, 4×Intel 8444h, 4TB RAM)"
+      nodes: 3
+      cpus_per_node: 176
+      mem_per_node_gb: 4096
+      max_walltime: "168:00:00"
+      gpu: false
+
+environment:
+  # Commands to initialize the environment in every job script
+  conda_init: "source /jinxianstor/apps/Anaconda3/conda.env"
+  bun_init: |
+    export BUN_INSTALL="$HOME/.bun"
+    export PATH="$BUN_INSTALL/bin:$PATH"
+  # If your cluster uses module system, add module loads here:
+  # module_loads:
+  #   - "module load gcc/12.2"
+  #   - "module load cuda/12.0"
+  custom_init: ""
+
+defaults:
+  # Default resources per task type — agent uses these unless user specifies otherwise
+  # Format: partition, cpus, mem_gb, time, (optional) gpus
+  qc:
+    partition: "base"
+    cpus: 8
+    mem_gb: 16
+    time: "4:00:00"
+  alignment:
+    partition: "base"
+    cpus: 16
+    mem_gb: 64
+    time: "12:00:00"
+  assembly:
+    partition: "base"
+    cpus: 32
+    mem_gb: 128
+    time: "24:00:00"
+  denoising:
+    partition: "base"
+    cpus: 16
+    mem_gb: 32
+    time: "8:00:00"
+  taxonomy:
+    partition: "base"
+    cpus: 16
+    mem_gb: 64
+    time: "8:00:00"
+  diversity_analysis:
+    partition: "base"
+    cpus: 8
+    mem_gb: 32
+    time: "4:00:00"
+  differential_analysis:
+    partition: "base"
+    cpus: 8
+    mem_gb: 32
+    time: "4:00:00"
+  functional_annotation:
+    partition: "base"
+    cpus: 16
+    mem_gb: 64
+    time: "12:00:00"
+  deep_learning:
+    partition: "gpu"
+    cpus: 16
+    mem_gb: 64
+    time: "48:00:00"
+    gpus: 1
+  large_memory:
+    partition: "fat"
+    cpus: 32
+    mem_gb: 256
+    time: "24:00:00"
+  generic:
+    partition: "base"
+    cpus: 8
+    mem_gb: 16
+    time: "4:00:00"
+
+notifications:
+  email: ""                # Your email for job notifications (leave empty to disable)
+  events: "END,FAIL"       # NONE, BEGIN, END, FAIL, ALL

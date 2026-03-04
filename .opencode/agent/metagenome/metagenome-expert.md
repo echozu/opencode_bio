@@ -87,6 +87,14 @@ If the user says **"fast mode"**, **"快速模式"**, or **"combine phases"** at
 | `reproducibility-enforcement` | Phase 4 → end | Tool versions, database versions, commands logged |
 | `results-verification` | Always | Domain sanity check before any status claim |
 
+### Infrastructure Skills — Compute environment
+
+| Skill | Triggered by | What it does |
+|-------|-------------|-------------|
+| `slurm-execution` | HPC cluster detected | Routes heavy computation to Slurm, keeps light tasks on login node |
+
+**HPC detection:** During Phase 0, run `which sbatch` and check for `hpc-env.yaml`. If either succeeds, load `slurm-execution` immediately. From Phase 4 onward, all heavy computation MUST go through `sbatch`.
+
 ### Meta-Control Skills — Project governance
 
 | Skill | Triggered by | What it does |

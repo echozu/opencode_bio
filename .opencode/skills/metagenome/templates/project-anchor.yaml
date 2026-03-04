@@ -38,11 +38,12 @@ target_venue:
   venue_locked: false
 
 resources:
-  compute: ""                 # e.g., "Linux server 64GB RAM", "laptop 16GB RAM", "HPC cluster"
+  compute: ""                 # e.g., "Linux server 64GB RAM", "laptop 16GB RAM", "HPC cluster with Slurm"
   storage: ""                 # e.g., "500GB available", "2TB NAS"
   databases_available: []     # e.g., ["SILVA 138", "GTDB r207", "UniRef90"]
   tools_installed: []         # e.g., ["QIIME2", "R 4.3", "MetaPhlAn3"]
   data_status: ""             # "raw_fastq", "qc_done", "partially_analyzed", "results_available"
+  hpc_env: ""                 # Path to hpc-env.yaml if on HPC cluster (triggers slurm-execution skill)
 
 # Filled during analysis
 primary_findings: ""          # Filled in Phase 5: one-sentence summary of key findings

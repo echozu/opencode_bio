@@ -107,6 +107,26 @@ Ask the user about available resources:
 
 Record answers in `resources` fields of the anchor file.
 
+### Step 5a: HPC Environment Detection (MANDATORY)
+
+Before recording resources, **automatically** detect the compute environment:
+
+1. Run `which sbatch` — if it returns a path, Slurm is available
+2. Check if `hpc-env.yaml` exists in the project root
+3. If EITHER check succeeds:
+   - Set `resources.compute: "HPC cluster with Slurm"` in `project-anchor.yaml`
+   - Set `resources.hpc_env_configured: true`
+   - Load the `slurm-execution` skill immediately
+   - Inform the user: "Detected HPC/Slurm environment. Heavy compute tasks will be submitted via `sbatch`."
+4. If `sbatch` exists but `hpc-env.yaml` does NOT exist:
+   - Warn the user: "Slurm is available but `hpc-env.yaml` is missing. Please create one from the template (`skills/hpc/slurm-execution/hpc-env.template.yaml`) so the agent can correctly allocate resources."
+   - Set `resources.hpc_env_configured: false`
+5. If neither check succeeds:
+   - Set `resources.compute: "Local (login node / workstation)"`
+   - All tasks will run locally
+
+This detection is silent and automatic — it does NOT require additional user input.
+
 ## Step 6: Create project-anchor.yaml
 
 Write `docs/01_intake/project-anchor.yaml` using the template at `templates/project-anchor.yaml`. Fill all Phase 0 fields: `project_name`, `data_type`, `sequencing_platform`, `sample_info`, `analysis_goals`, `expert_persona`, and `resources`. Present the completed file to the user for confirmation. Set `confirmed_by_user: true` only after explicit user approval.
@@ -160,5 +180,6 @@ Then STOP.
 3. Define analysis goals (prioritized list)
 4. Anchor expert persona
 5. Preliminary resource check (compute, storage, databases, tools, data status)
-6. Create `project-anchor.yaml` and get user confirmation
-7. Transition to `data-assessment`
+6. **HPC detection** — auto-detect Slurm, load `slurm-execution` if available
+7. Create `project-anchor.yaml` and get user confirmation
+8. Transition to `data-assessment`

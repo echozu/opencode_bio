@@ -30,6 +30,19 @@ Before entering Phase 4a, verify ALL items:
 - [ ] Environment/conda files prepared for reproducibility
 - [ ] Backup of raw data verified
 
+### HPC/Slurm Additional Checks
+
+If `project-anchor.yaml` → `resources.compute` contains "HPC" or "cluster", or if `hpc-env.yaml` exists in the project root, ALSO verify:
+
+- [ ] `hpc-env.yaml` exists and is configured for this cluster
+- [ ] Slurm is accessible (`sinfo` returns partition info)
+- [ ] Target partition has available nodes
+- [ ] `scripts/slurm/` directory created for job scripts
+- [ ] `logs/slurm/` directory created for job logs
+- [ ] Storage paths in `hpc-env.yaml` are accessible
+
+If HPC is detected, load the `slurm-execution` skill and use Slurm `sbatch` for all heavy computation steps instead of running directly. Refer to the `slurm-execution` skill's Decision Matrix for what counts as "heavy."
+
 If ANY item fails, STOP and resolve before proceeding.
 
 ## Phase 4a — Exploratory Stage
@@ -118,6 +131,13 @@ For every pipeline step:
 3. **Verify outputs** — expected files exist and have reasonable size
 4. **Run domain sanity check** — results make biological sense
 5. **Record in pipeline log** — `docs/04_execution/pipeline-log.md`
+
+**On HPC clusters (when `slurm-execution` skill is loaded):**
+- Write each step as a Slurm job script in `scripts/slurm/`
+- Submit via `sbatch` and record job ID in pipeline log
+- Use `--dependency=afterok` to chain dependent steps
+- Verify job success with `sacct` before proceeding to the next step
+- Log Slurm job ID, runtime, and resource usage in pipeline log
 
 ### Post-Execution Reviews
 
