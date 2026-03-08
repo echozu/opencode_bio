@@ -2,15 +2,17 @@
   "$schema": "file:///D:/code/code/work/openBio/oh-my-opencode/assets/oh-my-opencode.schema.json",
 
   "agents": {
-    "sisyphus":          { "model": "opencode/claude-opus-4-6" },
-    "hephaestus":        { "model": "opencode/gpt-5.2" },
-    "oracle":            { "model": "opencode/gpt-5.2" },
-    "explore":           { "model": "opencode/gpt-5-nano" },
-    "librarian":         { "model": "opencode/glm-4.7-free" },
-    "metis":             { "model": "opencode/claude-opus-4-6" },
-    "momus":             { "model": "opencode/gpt-5.2" },
-    "atlas":             { "model": "opencode/gpt-5.2" },
-    "multimodal-looker": { "model": "opencode/gpt-5-nano" }
+    "sisyphus":          { "model": "kimi-for-coding/k2p5" },
+    "sisyphus-junior":   { "model": "kimi-for-coding/k2p5" },
+    "hephaestus":        { "model": "kimi-for-coding/k2p5" },
+    "oracle":            { "model": "kimi-for-coding/k2p5" },
+    "explore":           { "model": "kimi-for-coding/k2p5" },
+    "librarian":         { "model": "kimi-for-coding/k2p5" },
+    "metis":             { "model": "kimi-for-coding/k2p5" },
+    "momus":             { "model": "kimi-for-coding/k2p5" },
+    "atlas":             { "model": "kimi-for-coding/k2p5" },
+    "multimodal-looker": { "model": "kimi-for-coding/k2p5" },
+    "prometheus":        { "model": "kimi-for-coding/k2p5" }
   },
 
   "sisyphus_agent": {

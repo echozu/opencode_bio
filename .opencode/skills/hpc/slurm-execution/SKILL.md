@@ -1,6 +1,13 @@
 ---
 name: slurm-execution
-description: "Use when running on an HPC cluster with Slurm — determines whether to execute commands directly or submit as Slurm jobs based on task weight, monitors job lifecycle, and collects results. Load this skill whenever pipeline-execution detects HPC resources in project-anchor.yaml."
+description: |
+  CRITICAL INFRASTRUCTURE — MUST load when hpc-env.yaml exists in project
+  root OR sbatch/squeue/sinfo commands are detected. Routes bioinformatics
+  computation (fastp, STAR, bowtie2, MEGAHIT, DADA2, Kraken2, MetaPhlAn,
+  DESeq2, Seurat, Scanpy) to Slurm compute nodes. Prevents heavy tasks
+  from running on login nodes (which would be killed by admins and harm
+  other users). Load during Phase 0 environment detection, enforce from
+  Phase 4 onward. Required for ALL omics analysis on HPC clusters.
 allowed-tools: [Read, Write, Edit, Bash]
 ---
 

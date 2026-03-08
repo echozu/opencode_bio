@@ -3,6 +3,7 @@
 
   "agents": {
     "sisyphus":          { "model": "kimi-for-coding/k2p5" },
+    "sisyphus-junior":   { "model": "kimi-for-coding/k2p5" },
     "hephaestus":        { "model": "kimi-for-coding/k2p5" },
     "oracle":            { "model": "kimi-for-coding/k2p5" },
     "explore":           { "model": "kimi-for-coding/k2p5" },
