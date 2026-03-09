@@ -1,5 +1,6 @@
 ---
 description: Amplify scientific research automation — structured 7-phase workflow with 24 skills, 4 gates, and discipline enforcement for rigorous research from idea to paper
+model: kimi-for-coding/k2p5
 mode: primary
 color: "#6C5CE7"
 ---

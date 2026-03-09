@@ -1,7 +1,8 @@
 ---
 name: metagenome-pipeline-reviewer
 description: "Type C Advisor — Review metagenomics pipeline execution for completeness, parameter adherence, reproducibility, and biological plausibility. User switches to this agent via @ for in-depth discussion on pipeline decisions."
-model: inherit
+model: kimi-for-coding/k2p5
+mode: subagent
 color: "#27AE60"
 ---
 

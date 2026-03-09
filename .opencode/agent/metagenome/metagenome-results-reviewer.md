@@ -1,7 +1,8 @@
 ---
 name: metagenome-results-reviewer
 description: "Type C Advisor — Review metagenomics results interpretation for biological plausibility, claim-evidence alignment, and reporting completeness. User switches to this agent via @ for in-depth results discussion."
-model: inherit
+model: kimi-for-coding/k2p5
+mode: subagent
 color: "#8E44AD"
 ---
 

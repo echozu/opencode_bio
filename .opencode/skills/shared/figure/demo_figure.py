@@ -37,7 +37,25 @@ import textwrap
 from pathlib import Path
 
 SKILL_DIR = Path(__file__).parent
-AUTOFIGURE_DIR = SKILL_DIR / "autofigure-edit"
+
+def _find_autofigure_dir():
+    """Locate autofigure-edit directory.
+    Search order:
+      1. ../../../../../autofigure-edit  (openBio/autofigure-edit — moved out of skills)
+      2. ./autofigure-edit               (legacy: still inside skills/shared/figure/)
+    """
+    # From skills/shared/figure/ → go up to opencode_bio/ → up to openBio/
+    external = SKILL_DIR.parent.parent.parent.parent.parent / "autofigure-edit"
+    if external.is_dir():
+        return external
+    # Fallback: legacy location (still inside this skill dir)
+    legacy = SKILL_DIR / "autofigure-edit"
+    if legacy.is_dir():
+        return legacy
+    # Not found — return expected external path for error messages
+    return external
+
+AUTOFIGURE_DIR = _find_autofigure_dir()
 
 
 def check_deps(packages):

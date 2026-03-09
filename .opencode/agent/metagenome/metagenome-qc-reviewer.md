@@ -1,7 +1,8 @@
 ---
 name: metagenome-qc-reviewer
 description: "Type C Advisor — Review metagenomics data quality, QC pipeline decisions, and preprocessing methodology. User switches to this agent via @ for in-depth QC discussion."
-model: inherit
+model: kimi-for-coding/k2p5
+mode: subagent
 color: "#E67E22"
 ---
 

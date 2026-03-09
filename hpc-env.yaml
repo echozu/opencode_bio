@@ -145,5 +145,5 @@ defaults:
     time: "4:00:00"
 
 notifications:
-  email: ""               # 填写邮箱可在作业完成/失败时收到通知，留空则不通知
+  email: "3158779947@qq.email"               # 填写邮箱可在作业完成/失败时收到通知，留空则不通知
   events: "END,FAIL"      # NONE, BEGIN, END, FAIL, ALL

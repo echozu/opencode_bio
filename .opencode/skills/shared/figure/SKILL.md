@@ -44,6 +44,11 @@ This skill provides two capabilities for generating publication-quality academic
 
 Converts paper method text into fully editable SVG figures through a multi-stage pipeline.
 
+> **Note:** AutoFigure-Edit source code is located **outside** the skills directory to avoid
+> slow scanning on startup. Location: `<project_root>/../autofigure-edit/`
+> (e.g. `/jinxianstor/home/<user>/openBio/autofigure-edit/`).
+> This section contains all the information the Agent needs to use it.
+
 ### Pipeline
 
 ```
@@ -58,8 +63,9 @@ Method Text -> [LLM Image Gen] -> figure.png
 ### Prerequisites
 
 ```bash
+# AutoFigure-Edit is located at: <openBio_root>/autofigure-edit/
 # Install dependencies
-pip install -r .opencode/skills/bio/figure/autofigure-edit/requirements.txt
+pip install -r /path/to/openBio/autofigure-edit/requirements.txt
 
 # SAM3 (for local segmentation backend)
 git clone https://github.com/facebookresearch/sam3.git
@@ -69,28 +75,31 @@ cd sam3 && pip install -e .
 ### Usage
 
 ```bash
+# Set the path to autofigure-edit (adjust to your environment)
+AUTOFIGURE_DIR="/path/to/openBio/autofigure-edit"
+
 # Basic usage with Bianxie provider (recommended)
-python autofigure2.py \
+python "$AUTOFIGURE_DIR/autofigure2.py" \
     --method_file paper_method.txt \
     --output_dir ./output \
     --api_key "your-api-key"
 
 # Use Gemini provider
-python autofigure2.py \
+python "$AUTOFIGURE_DIR/autofigure2.py" \
     --method_file paper_method.txt \
     --output_dir ./output \
     --api_key "your-key" \
     --provider gemini
 
 # Use OpenRouter provider
-python autofigure2.py \
+python "$AUTOFIGURE_DIR/autofigure2.py" \
     --method_file paper_method.txt \
     --output_dir ./output \
     --api_key "sk-or-v1-xxx" \
     --provider openrouter
 
 # Use label placeholder mode (recommended) with multi-prompt SAM3
-python autofigure2.py \
+python "$AUTOFIGURE_DIR/autofigure2.py" \
     --method_file paper_method.txt \
     --output_dir ./output \
     --api_key "your-key" \
@@ -98,13 +107,13 @@ python autofigure2.py \
     --sam_prompt "icon,diagram,arrow,chart"
 
 # Control SVG optimization iterations (0 = skip, default = 1)
-python autofigure2.py \
+python "$AUTOFIGURE_DIR/autofigure2.py" \
     --method_file paper_method.txt \
     --output_dir ./output \
     --optimize_iterations 3
 
 # Custom box merge threshold (default 0.9, set 0 to disable)
-python autofigure2.py \
+python "$AUTOFIGURE_DIR/autofigure2.py" \
     --method_file paper_method.txt \
     --output_dir ./output \
     --merge_threshold 0.8
@@ -139,7 +148,7 @@ output_dir/
 AutoFigure-Edit includes a FastAPI-based web interface with SVG editor:
 
 ```bash
-python server.py --port 8080
+python "$AUTOFIGURE_DIR/server.py" --port 8080
 # Open http://localhost:8080 in browser
 ```
 

@@ -1,7 +1,8 @@
 ---
 name: metagenome-expert
 description: "Expert agent for gut metagenome analysis including 16S/18S/ITS amplicon, shotgun metagenome (assembly-based and read-based), and combined workflows. Handles QC, taxonomy, diversity, functional annotation, differential analysis, and publication-grade reporting."
-model: primary
+model: kimi-for-coding/k2p5
+mode: primary
 color: "#2ECC71"
 ---
 

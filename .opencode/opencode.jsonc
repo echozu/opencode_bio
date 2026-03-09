@@ -12,8 +12,9 @@
     }
   },
   "plugin": [
-    "file:///D:/code/code/work/openBio/oh-my-opencode/dist/index.js",
-    "file:///D:/code/code/work/openBio/opencode-tokenscope/plugin/dist/tokenscope.js",
+    "file://../oh-my-opencode/dist/index.js",
+    "file://../opencode-tokenscope/plugin/dist/tokenscope.js",
+    // 以下两个插件源码位于: .opencode/plugins/
     "file://./.opencode/plugins/hpc-safety-guard.ts",
     "file://./.opencode/plugins/bio-context-injector.ts"
   ],
