@@ -1,0 +1,78 @@
+# project-anchor.yaml — scRNA-seq Project Anchor File
+# This is the single source of truth for the entire scRNA-seq analysis project.
+# Fields marked locked: true MUST NOT be modified by agents without user authorization.
+# All modifications must be logged in modification_log.
+#
+# Location: docs/scrna/project-anchor.yaml
+
+project_name: ""              # e.g., "Tumor Microenvironment scRNA-seq Analysis"
+data_type: ""                 # S=10X scRNA-seq, P=Smart-seq2, C=CITE-seq/DOGMA-seq, A=scATAC-seq/Multiome, I=scTCR/BCR-seq
+data_type_locked: false
+
+sequencing_platform: ""       # e.g., "10X Chromium", "Smart-seq2", "10X Multiome"
+chemistry: ""                 # e.g., "3' v3.1", "5' v2", "Multiome ATAC+GEX"
+species: ""                   # e.g., "Human (GRCh38)", "Mouse (mm10)"
+tissue: ""                    # e.g., "PBMC", "Tumor biopsy", "Brain cortex"
+expected_cells_per_sample: null  # e.g., 5000
+
+sample_info:
+  total_samples: null         # e.g., 12
+  groups: []                  # e.g., ["Control", "Treatment", "Responder", "Non-responder"]
+  group_sizes: {}             # e.g., { Control: 4, Treatment: 4, Responder: 2, Non-responder: 2 }
+  biological_replicates: null # e.g., 3 per group
+  metadata_available: false   # Is clinical/experimental metadata available?
+  metadata_fields: []         # e.g., ["age", "sex", "disease_stage", "treatment", "batch"]
+
+expert_persona: ""            # e.g., "single-cell genomics researcher specializing in tumor immunology"
+reviewer_focus: []            # Domain-specific reviewer concerns, e.g.:
+  # - "cell type annotation accuracy"
+  # - "batch effect control"
+  # - "doublet detection adequacy"
+  # - "pseudobulk DE for multi-sample"
+
+analysis_goals: []            # e.g.:
+  # - "Identify cell type composition differences between treatment groups"
+  # - "Discover novel cell subpopulations associated with therapy response"
+  # - "Infer cell-cell communication networks in tumor microenvironment"
+  # - "Perform trajectory analysis of T cell differentiation"
+
+analysis_plan:
+  normalization: ""           # SCTransform / LogNormalize / scran
+  integration: ""             # Harmony / Seurat CCA / scVI / scanorama / none
+  clustering: ""              # Leiden / Louvain
+  resolution_range: ""        # e.g., "0.3-1.5"
+  annotation_strategy: ""    # e.g., "SingleR + manual marker validation"
+  de_method: ""               # e.g., "pseudobulk DESeq2" / "MAST" / "FindMarkers (Wilcoxon)"
+  advanced_analyses: []       # e.g., ["trajectory", "cell_communication", "GRN"]
+
+target_venue:
+  primary: ""                 # e.g., "Cell Reports", "Genome Biology", "Nature Communications"
+  alternatives: []            # e.g., ["Frontiers in Immunology", "BMC Genomics"]
+  tier: ""                    # A / B / C
+  venue_locked: false
+
+resources:
+  compute: ""                 # e.g., "HPC cluster with Slurm", "Linux server 128GB RAM"
+  storage: ""                 # e.g., "2TB available"
+  gpu_available: false        # For scVI, CellBender, SCENIC
+  tools_installed: []         # e.g., ["R 4.3", "Seurat 5.0", "Scanpy 1.9", "CellRanger 7.2"]
+  data_status: ""             # "raw_fastq", "cellranger_done", "seurat_object", "partially_analyzed"
+  hpc_env: ""                 # Path to hpc-env.yaml if on HPC cluster
+
+# Filled during analysis
+primary_findings: ""          # Filled in Phase 4/5: one-sentence summary of key findings
+story_line: ""                # Filled in Phase 5: 3-5 sentence narrative arc
+value_proposition: ""         # Filled in Phase 5: what's new or significant
+
+# Phase tracking (for jump-in support)
+phases_completed: []          # e.g., ["phase0", "phase1"]
+current_phase: ""             # e.g., "phase2"
+jump_in_declared: false       # Was progress declared by user?
+jump_in_verified: false       # Was declared progress verified?
+jump_in_notes: ""             # What was declared vs what was verified
+
+confirmed_by_user: false
+confirmed_at: ""
+last_modified: ""
+modification_log: []
+  # Each entry: { date: "", field: "", old_value: "", new_value: "", reason: "", user_approved: bool }
