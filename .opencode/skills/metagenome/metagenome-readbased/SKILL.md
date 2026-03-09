@@ -1,5 +1,5 @@
 ---
-name: metagenome-readbased
+name: shotgun-readbased
 description: Use when data type is R (Metagenome-ReadBased) and pipeline execution is in progress — provides step-by-step read-based metagenome workflow using MetaPhlAn and HUMAnN for taxonomic and functional profiling
 ---
 

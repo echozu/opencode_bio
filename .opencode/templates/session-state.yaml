@@ -1,0 +1,67 @@
+# session-state.yaml — 跨 Agent 共享进度文件 (通用模板 v3.4)
+# All agents share this file for cross-agent coordination.
+# Each agent updates ONLY its own section under agents.{domain}.
+# cross_validation section is shared — any agent can append.
+#
+# Location: docs/session-state.yaml (created at first Agent's Phase 0)
+
+project:
+  name: ""                          # From project-anchor.yaml
+  created: ""                       # ISO date
+  execution_mode: "semi-auto"       # Synced from project-anchor.yaml
+
+agents:
+  # Each agent maintains its own section. Format:
+  #
+  # {domain}:
+  #   status: "idle"                # idle | in_progress | completed | failed | halted
+  #   current_phase: 0              # 0-6
+  #   completed_phases: []          # e.g., [0, 1, 2]
+  #   key_outputs: []               # List of important output file paths
+  #   key_findings: []              # List of key discoveries (one-line each)
+  #   last_updated: ""              # ISO datetime
+  #   errors: []                    # Any errors encountered
+
+  # Example — metagenome agent:
+  # metagenome:
+  #   status: "in_progress"
+  #   current_phase: 3
+  #   completed_phases: [0, 1, 2]
+  #   key_outputs:
+  #     - "results/metagenome/qc/multiqc_report.html"
+  #     - "results/metagenome/taxonomy/feature-table.biom"
+  #   key_findings:
+  #     - "16S data quality grade B; 2 samples flagged (high adapter %)"
+  #     - "15 phyla detected; Firmicutes/Bacteroidetes ratio differs between groups"
+  #   last_updated: "2026-03-09T14:30:00"
+  #   errors: []
+
+  # Example — scrna agent:
+  # scrna:
+  #   status: "completed"
+  #   current_phase: 6
+  #   completed_phases: [0, 1, 2, 3, 4, 5, 6]
+  #   key_outputs:
+  #     - "results/scrna/clustering/umap_celltypes.pdf"
+  #     - "results/scrna/de/differential_expression.csv"
+  #   key_findings:
+  #     - "12 cell types identified; novel CD8+ T cell subpopulation in treatment group"
+  #     - "580 DEGs between treatment and control in monocytes (padj < 0.05)"
+  #   last_updated: "2026-03-09T18:00:00"
+  #   errors: []
+
+cross_validation: []
+  # Cross-omics findings that multiple agents should be aware of.
+  # Any agent can append. Format:
+  #
+  # - source_agent: "metagenome"
+  #   target_agents: ["transcriptome"]
+  #   finding: "Genus Faecalibacterium depleted in disease group"
+  #   relevance: "Check if host genes in butyrate metabolism pathway are affected"
+  #   timestamp: "2026-03-09T15:00:00"
+  #
+  # - source_agent: "scrna"
+  #   target_agents: ["metagenome", "transcriptome"]
+  #   finding: "Macrophage activation signature elevated in treatment group"
+  #   relevance: "Correlate with microbial composition changes"
+  #   timestamp: "2026-03-09T18:30:00"

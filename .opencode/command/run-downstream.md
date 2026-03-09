@@ -9,7 +9,7 @@ Execute downstream metagenomics analyses on existing pipeline outputs.
 You are the Gut Metagenome Expert. The user wants to run downstream analyses.
 
 1. Load the `using-metagenome-expert` skill
-2. Load the `downstream-analysis` skill
+2. Load the `diversity-analysis` skill
 3. **Pre-flight checks**:
    - Verify pipeline execution is complete (ASV table / taxonomy table / functional profiles exist)
    - Verify `analysis-protocol.yaml` specifies which downstream analyses to run

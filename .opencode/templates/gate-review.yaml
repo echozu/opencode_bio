@@ -1,0 +1,79 @@
+# Gate Review Template — docs/{domain}/gates/gate-{N}-{type}-review.yaml
+# Persists Gate review conclusions. MUST be written after every Gate checkpoint.
+#
+# Usage: Copy this template, fill in fields, save to:
+#   docs/{domain}/gates/gate-{N}-{type}-review.yaml
+#   e.g., docs/metagenome/gates/gate-1-data-quality-review.yaml
+
+gate: 1                             # Gate number (1-4)
+type: "data-quality"                 # data-quality | methods-review | results-review | final-review
+review_type: "blind"                 # blind (Type A) | deliberation (Type B)
+reviewer_role: ""                    # Reviewer persona name, e.g., "microbiologist", "pipeline-expert"
+timestamp: ""                        # ISO datetime: YYYY-MM-DDTHH:MM:SS
+domain: ""                           # metagenome | scrna | transcriptome | ...
+
+verdict: ""                          # PASS | CONDITIONAL | FAIL
+attempt: 1                           # Review attempt count (increments on REVISE/retry)
+
+# Deliberation mode (Type B) — fill when review_type = "deliberation"
+deliberation:
+  rounds_completed: 0                # How many deliberation rounds
+  max_rounds: 3                      # Configured max rounds
+  agents_involved: []                # e.g., ["qc-reviewer", "pipeline-reviewer"]
+  consensus: false                   # Whether consensus was reached
+  convergence_round: null            # Round where consensus was reached (null if not)
+
+checklist:
+  # Gate-specific checklist items. Each item:
+  # - item: "Description of check"
+  #   result: "pass"                 # pass | fail | conditional | na
+  #   note: ""                       # Optional explanation
+  []
+
+  # Example for Gate 1 (data-quality):
+  # - item: "QC metrics computed for all samples?"
+  #   result: "pass"
+  #   note: ""
+  # - item: "Quality grade assigned?"
+  #   result: "pass"
+  #   note: "Overall grade: B"
+  # - item: "Problem samples flagged?"
+  #   result: "pass"
+  #   note: "2 samples flagged for high mito%"
+  # - item: "Preprocessing steps appropriate?"
+  #   result: "pass"
+  #   note: ""
+
+  # Example for Gate 2 (methods-review):
+  # - item: "Analysis method appropriate for data type?"
+  #   result: "pass"
+  # - item: "Tool versions documented?"
+  #   result: "pass"
+  # - item: "Statistical tests match study design?"
+  #   result: "pass"
+  # - item: "Parameters within accepted ranges?"
+  #   result: "conditional"
+  #   note: "min_cells=3 may be too aggressive; suggest min_cells=5"
+
+  # Example for Gate 3 (results-review):
+  # - item: "Statistical tests correctly applied?"
+  #   result: "pass"
+  # - item: "Multiple testing correction applied?"
+  #   result: "pass"
+  # - item: "Effect sizes reported?"
+  #   result: "pass"
+  # - item: "Figures meet publication standards?"
+  #   result: "conditional"
+  #   note: "Volcano plot missing threshold lines"
+  # - item: "Claims supported by evidence?"
+  #   result: "pass"
+
+issues: []
+  # List of issues found during review.
+  # - severity: "critical"           # critical | major | minor
+  #   description: ""
+  #   suggestion: ""
+  #   resolved: false                # Set to true after fix + re-review
+  #   resolved_in_round: null        # Which deliberation round resolved it
+
+summary: ""                          # One-paragraph summary of review outcome

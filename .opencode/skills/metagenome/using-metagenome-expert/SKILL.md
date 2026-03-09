@@ -113,7 +113,7 @@ The Gut Metagenome Expert operates on three layers:
 
 **Workflow Layer** — Phase-by-phase analysis flow (project-anchoring → data-assessment → analysis-design-validation → pipeline-design → pipeline-execution → results-integration → report-generation). These tell you WHAT to do next.
 
-**Discipline Layer** — Cross-phase scientific rigor (parameter-lock, anti-cherry-pick, claim-evidence-alignment, qc-standards, contamination-check, reproducibility-enforcement, results-verification). These tell you WHAT RULES to follow at all times.
+**Discipline Layer** — Cross-phase scientific rigor (parameter-lock, anti-cherry-pick, claim-evidence-alignment, qc-standards, host-decontamination, reproducibility-enforcement, results-verification). These tell you WHAT RULES to follow at all times.
 
 **Meta-Control Layer** — Project governance (scope-control, pivot-or-kill, data-quality-alert, analysis-validity-check). These tell you WHEN to stop, pivot, or escalate.
 
@@ -151,10 +151,10 @@ When a user describes analysis intent, skills apply in this order:
 | `data-assessment` | 1 | QC profiling, tool selection, data type confirmation, G1 gate |
 | `analysis-design-validation` | 2 | 3-agent adversarial review of analysis plan |
 | `pipeline-design` | 3 | Parameter lock, database selection, G2 gate |
-| `amplicon-analysis` | 4 | Type A: DADA2 → taxonomy → PICRUSt2 |
-| `metagenome-assembly` | 4 | Type M: assembly → gene prediction → annotation |
-| `metagenome-readbased` | 4 | Type R: MetaPhlAn3 → HUMAnN2/3 |
-| `downstream-analysis` | 4 | Shared: diversity, differential, network analysis |
+| `amplicon-pipeline` | 4 | Type A: DADA2 → taxonomy → PICRUSt2 |
+| `shotgun-assembly` | 4 | Type M: assembly → gene prediction → annotation |
+| `shotgun-readbased` | 4 | Type R: MetaPhlAn4 → HUMAnN3 |
+| `diversity-analysis` | 4 | Shared: diversity, differential, network analysis |
 | `functional-annotation` | 4 | Functional gene mining (SBA, SCFAs, etc.) |
 | `pipeline-execution` | 4 | Orchestrates execution, G3 gate |
 | `results-integration` | 5 | Story design, claim-evidence check, G4 gate |
@@ -170,7 +170,7 @@ When a user describes analysis intent, skills apply in this order:
 | `anti-cherry-pick` | Phase 4 → end | All samples reported, failures recorded, no selective reporting |
 | `claim-evidence-alignment` | Phase 5–6 | Every claim maps to specific evidence |
 | `qc-standards` | Phase 1 → end | Minimum quality thresholds for reads, assemblies, annotations |
-| `contamination-check` | Phase 1 → end | Host DNA, kit contamination, cross-contamination screening |
+| `host-decontamination` | Phase 1 → end | Host DNA, kit contamination, cross-contamination screening |
 | `reproducibility-enforcement` | Phase 4 → end | Tool versions, database versions, commands logged |
 | `results-verification` | Always | Domain sanity check before any status claim |
 

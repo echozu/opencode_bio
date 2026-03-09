@@ -1,0 +1,77 @@
+# project-anchor.yaml — 项目锚定文件 (通用模板 v3.4)
+# This is the single source of truth for the analysis project.
+# Fields marked locked MUST NOT be modified by agents without user authorization.
+# All modifications must be logged in modification_log.
+#
+# Location: docs/project-anchor.yaml (created at Phase 0)
+
+project:
+  name: ""                        # e.g., "IBD Gut Microbiome Analysis"
+  description: ""                  # One-line project description
+  created: ""                      # ISO date: YYYY-MM-DD
+
+execution:
+  mode: "semi-auto"                # auto | semi-auto | interactive
+  hpc_environment: false           # true | false
+  hpc_config: ""                   # Path to hpc-env.yaml if HPC detected
+
+data:
+  type: ""                         # 16S-amplicon | shotgun-metagenome | scRNA-10X | smart-seq2 |
+                                   # bulk-RNA-seq | ATAC-seq | ChIP-seq | proteomics | Ribo-seq | ...
+  species: ""                      # human | mouse | rat | custom
+  reference_genome: ""             # e.g., GRCh38, GRCm39
+  annotation: ""                   # e.g., GENCODE v44, Ensembl 110
+  samples: 0                       # Total sample count
+  groups: []                       # e.g., ["control", "treatment", "disease"]
+  group_sizes: {}                  # e.g., { control: 10, treatment: 10 }
+  sequencing_platform: ""          # e.g., "Illumina NovaSeq 6000"
+  sequencing_strategy: ""          # e.g., "paired-end 2x150bp"
+  data_path: ""                    # Absolute path to raw data directory
+  metadata_path: ""                # Path to sample metadata file
+  metadata_fields: []              # e.g., ["age", "sex", "BMI", "batch"]
+
+analysis:
+  objectives: []                   # e.g.:
+    # - "Identify differentially expressed genes between treatment and control"
+    # - "Perform cell type annotation and trajectory analysis"
+  pipeline_type: ""                # Filled by Agent based on data.type
+  locked_parameters: {}            # Phase 2 后锁定，格式: { param_name: { value: X, locked_at: "phase2" } }
+  databases: []                    # e.g., ["SILVA 138.1", "KEGG release 109"]
+
+quality:
+  data_quality_grade: ""           # A/B/C/D/F (Phase 1 后填写)
+  qc_summary: ""                   # One-line QC summary
+  flagged_samples: []              # Samples with quality concerns
+
+progress:
+  current_phase: 0                 # 0-6
+  completed_phases: []             # e.g., [0, 1, 2]
+  completed_gates: []              # e.g., ["gate-1", "gate-2"]
+  status: "not_started"            # not_started | in_progress | completed | halted
+
+# Jump-in support (for resuming or joining mid-analysis)
+jump_in:
+  declared: false                  # Was progress declared by user?
+  verified: false                  # Was declared progress verified against disk?
+  declared_phase: ""               # User claims to be at this phase
+  verified_phase: ""               # Actual phase based on disk evidence
+  notes: ""                        # Discrepancies between declared and verified
+
+# Findings (filled during Phase 5-6)
+findings:
+  primary: ""                      # One-sentence summary of key findings
+  story_line: ""                   # 3-5 sentence narrative arc
+  value_proposition: ""            # What's new or significant
+
+# Audit trail
+confirmed_by_user: false
+confirmed_at: ""                   # ISO datetime
+last_modified: ""                  # ISO datetime
+modification_log: []
+  # Each entry:
+  # - date: "YYYY-MM-DD"
+  #   field: "analysis.locked_parameters.min_cells"
+  #   old_value: "3"
+  #   new_value: "5"
+  #   reason: "Too many genes filtered at min_cells=3"
+  #   user_approved: true

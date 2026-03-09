@@ -1,5 +1,5 @@
 ---
-name: downstream-analysis
+name: diversity-analysis
 description: Use when primary profiling (taxonomy/function) is complete for any data type — provides shared downstream analyses including diversity, differential abundance, and interaction networks
 ---
 

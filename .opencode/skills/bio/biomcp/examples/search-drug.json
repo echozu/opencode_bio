@@ -1,7 +1,0 @@
-{
-  "count": 3,
-  "results": [
-    { "name": "vemurafenib", "target": "BRAF" },
-    { "name": "dabrafenib", "target": "BRAF" }
-  ]
-}

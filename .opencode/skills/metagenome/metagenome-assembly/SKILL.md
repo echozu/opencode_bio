@@ -1,5 +1,5 @@
 ---
-name: metagenome-assembly
+name: shotgun-assembly
 description: Use when data type is M (Metagenome-Assembly) and pipeline execution is in progress — provides step-by-step assembly-based metagenome workflow from assembly through gene prediction, binning, and functional annotation
 ---
 

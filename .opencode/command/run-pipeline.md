@@ -16,9 +16,9 @@ You are the Gut Metagenome Expert. The user wants to execute their analysis pipe
    - Verify all required tools are installed with correct versions
    - Verify input data paths are valid
 4. Based on data type in `project-anchor.yaml`, load the appropriate sub-skill:
-   - Type A → `amplicon-analysis`
-   - Type M → `metagenome-assembly`
-   - Type R → `metagenome-readbased`
+   - Type A → `amplicon-pipeline`
+   - Type M → `shotgun-assembly`
+   - Type R → `shotgun-readbased`
 5. Execute the pipeline following the locked parameters
 6. Apply discipline skills throughout: `parameter-lock`, `anti-cherry-pick`, `reproducibility-enforcement`, `qc-standards`
 7. After each major step, verify outputs against `qc-standards`

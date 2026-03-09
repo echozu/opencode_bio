@@ -1,5 +1,5 @@
 ---
-name: contamination-check
+name: host-decontamination
 description: Use when processing any gut microbiome data — enforces systematic screening for host DNA contamination, kit contamination, and cross-sample contamination
 ---
 

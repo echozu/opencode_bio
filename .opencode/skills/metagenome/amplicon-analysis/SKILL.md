@@ -1,5 +1,5 @@
 ---
-name: amplicon-analysis
+name: amplicon-pipeline
 description: Use when data type is A (Amplicon) and pipeline execution is in progress — provides step-by-step DADA2/QIIME2 workflow from denoising through taxonomy assignment and functional prediction
 ---
 

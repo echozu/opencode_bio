@@ -73,7 +73,7 @@ Three contamination types MUST be assessed:
 2. **Kit contamination** — reagent-associated taxa (especially in low-biomass samples)
 3. **Cross-sample contamination** — barcode hopping, index switching
 
-Invoke the `contamination-check` discipline skill for detailed protocols.
+Invoke the `host-decontamination` skill for detailed protocols.
 </IRON-LAW>
 
 ## Step 4: Tool Chain Selection

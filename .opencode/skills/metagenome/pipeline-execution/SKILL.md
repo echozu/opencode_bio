@@ -117,10 +117,10 @@ Based on data type, invoke the appropriate analysis sub-skill:
 
 | Data Type | Primary Sub-Skill | Then |
 |-----------|------------------|------|
-| A (Amplicon) | `amplicon-analysis` | `downstream-analysis` |
-| M (Assembly) | `metagenome-assembly` | `downstream-analysis` + `functional-annotation` |
-| R (Read-Based) | `metagenome-readbased` | `downstream-analysis` + `functional-annotation` |
-| C (Combined) | Both A + (M or R) | `downstream-analysis` + cross-validation |
+| A (Amplicon) | `amplicon-pipeline` | `diversity-analysis` |
+| M (Assembly) | `shotgun-assembly` | `diversity-analysis` + `functional-annotation` |
+| R (Read-Based) | `shotgun-readbased` | `diversity-analysis` + `functional-annotation` |
+| C (Combined) | Both A + (M or R) | `diversity-analysis` + cross-validation |
 
 ### Execution Discipline
 

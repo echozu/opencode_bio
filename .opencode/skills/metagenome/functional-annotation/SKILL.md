@@ -14,7 +14,7 @@ Do NOT execute functional annotation without:
 
 ## Overview
 
-Specialized functional gene mining beyond standard pathway profiling. Targets gut-specific functional categories that are biologically and clinically relevant. This skill complements the general functional profiling from `metagenome-readbased` or `metagenome-assembly`.
+Specialized functional gene mining beyond standard pathway profiling. Targets gut-specific functional categories that are biologically and clinically relevant. This skill complements the general functional profiling from `shotgun-readbased` or `shotgun-assembly`.
 
 ## Functional Category 1: Short-Chain Fatty Acid (SCFA) Production
 

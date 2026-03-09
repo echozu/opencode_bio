@@ -1,5 +1,0 @@
-# Trial: NCT02576665
-
-Status: RECRUITING
-Condition: Melanoma
-Sections: eligibility, locations, outcomes, arms, references
